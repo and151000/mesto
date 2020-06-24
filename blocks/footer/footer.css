@@ -1,0 +1,18 @@
+@import url(./__copyright/footer__copyright.css);
+
+.footer {
+    max-width: 882px;
+    margin: 0 auto;
+}
+
+@media (max-width:768px) {
+    .footer {
+        margin: 0 40px 0 40px;
+    }
+}
+
+@media (max-width:320px) {
+    .footer {
+        margin: 0 19px 0 19px;
+    }
+}

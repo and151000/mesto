@@ -1,0 +1,14 @@
+.profile__item {
+    display: flex;
+    /* border: tomato 1px solid; */
+}
+
+@media (max-width: 768px) {
+    .profile__item{
+        /* max-width: 280px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
