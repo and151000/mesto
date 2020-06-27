@@ -5,22 +5,32 @@
 @import url(./__heart-btn/elements__heart-btn.css);
 
 .elements {
+    /* max-width: 882px; */
     display: grid;
     grid-gap: 21px 18px;
     grid-template-columns: repeat(3, 1fr);
     margin: 0 auto 66px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .elements {
+        
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 19px 16px;
     }
-}
+} */
 
-@media (max-width: 320px) {
+@media screen and (max-width: 1190px) { 
+    .elements {
+      max-width: 590px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+@media (max-width: 768px) {
     .elements {
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 20px ;
+        width: 100%;
     }
 }

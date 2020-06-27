@@ -2,17 +2,20 @@
 
 .footer {
     max-width: 882px;
-    margin: 0 auto;
+    margin: 0;
+    width: 75%;
 }
 
 @media (max-width:768px) {
     .footer {
+        /* max-width: 80%; */
         margin: 0 40px 0 40px;
     }
 }
 
 @media (max-width:320px) {
     .footer {
+        width: 90%;
         margin: 0 19px 0 19px;
     }
 }

@@ -14,6 +14,12 @@
     
 }
 
+@media (max-width: 1190px) {
+    .header {
+        max-width: 750px;
+    }
+}
+
 
  
 @media (max-width: 768px){

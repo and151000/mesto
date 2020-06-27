@@ -9,3 +9,9 @@
     padding-bottom: 60px;
 }
 
+@media screen and (max-width: 480px) { 
+    .footer__copyright {
+      font-size: 14px;
+      line-height: 17px;
+    }
+ } 
