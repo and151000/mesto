@@ -9,7 +9,10 @@
 
     -o-object-fit: cover;
     object-fit: cover;
-    width: 100%;
+    width: 282px;
     height: auto;
+    list-style-type: none;
+    position: relative;
+    padding: 0;
     
 }

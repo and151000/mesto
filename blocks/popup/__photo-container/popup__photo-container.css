@@ -1,0 +1,7 @@
+.popup__photo-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: auto;
+    z-index: 4;
+  }

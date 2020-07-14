@@ -3,6 +3,9 @@
 @import url(./__image/elements__image.css);
 @import url(./__title/elements__title.css);
 @import url(./__heart-btn/elements__heart-btn.css);
+@import url(./__delete-btn/elements__delete-btn.css);
+@import url(./__heart-btn/_active/elements__heart-btn_active.css);
+
 
 .elements {
     /* max-width: 882px; */
