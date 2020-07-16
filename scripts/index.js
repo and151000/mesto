@@ -59,6 +59,8 @@ const jobInput = document.querySelector('.popup__field_type_description');
 const newElementNameInput = document.querySelector('.popup__field_type_name-card');
 const newElementLinkInput = document.querySelector('.popup__field_type_link');
 
+const cardsTemplate = document.querySelector('.cards-template').content;
+
 // popup switch
 const popupToggle = function(popup) {
   popup.classList.toggle('popup_opened');
@@ -126,7 +128,7 @@ popupPhotoCloseButton.addEventListener('click', () => popupToggle(popupPhoto));
 
 // create card
 function createCard (card) {
-  const cardsTemplate = document.querySelector('.cards-template').content;
+  
   const cardsElement = cardsTemplate.cloneNode(true);
   const cardsElementImage = cardsElement.querySelector('.elements__image');
   const cardsElementTitle = cardsElement.querySelector('.elements__title');
@@ -144,12 +146,12 @@ function createCard (card) {
 
 
 //перебор массива
-function rendCards(newCards) {
+function renderCards(newCards) {
   newCards.forEach(card => {
     cards.prepend(createCard(card))
   });
 }
-rendCards(initialCards);
+renderCards(initialCards);
 
 
 // add new card
