@@ -1,93 +1,91 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./pages/index.css" />
   <title>Место</title>
 </head>
 
 <body class="background">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/__logo.svg" alt="Место" />
+    </header>
 
-    <div class="page">
-
-        <header class="header">
-            <img class="header__logo" src="./images/__logo.svg" alt="Место">
-        </header>
-
-
-        <section class="profile">
-            <div class="profile__item">
-                <img class="profile__avatar" src="./images/avatar.jpg" alt="Кусто">
-                <div class="profile__text">
-                    <div class="profile__row">
-                    <h1 class="profile__main-text">Жак-Ив Кусто</h1>
-                    <button type="button" class="profile__edit-button"></button>
-                    </div>  
-                    <p class="profile__secondary-text">Исследователь океана</p>
-                </div>
-            </div>
-            <button type="button" class="profile__add-button"></button>
-        </section>
-
-
-        <section class="elements">
-        </section>
-
-
-        <footer class="footer">
-            <p class="footer__copyright">&copy; Андрей Агеев</p>
-        </footer>
-
-    </div>
-
-
-      <div class="popup popup_type_profile">
-        <form class="popup__form">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input name="name" type="text" class="popup__field popup__field_type_name">
-          <input name="job" type="text" class="popup__field popup__field_type_description">
-          <button class="popup__submit-button" type="submit">Сохранить</button>
-          <button class="popup__close-button" type="button"></button>
-        </form>
-      </div>
-  
-
-
-      <div class="popup popup_type_photo">
-        <div class="popup__photo-container">
-          <img class="popup__photo" alt="">
-          <p class="popup__photo-name"></p>
-          <button class="popup__close-button popup__close-button_photo" type="button"></button>
+    <section class="profile">
+      <div class="profile__item">
+        <img class="profile__avatar" src="./images/avatar.jpg" alt="Кусто" />
+        <div class="profile__text">
+          <div class="profile__row">
+            <h1 class="profile__main-text">Жак-Ив Кусто</h1>
+            <button type="button" class="profile__edit-button"></button>
+          </div>
+          <p class="profile__secondary-text">Исследователь океана</p>
         </div>
       </div>
+      <button type="button" class="profile__add-button"></button>
+    </section>
 
+    <section class="elements"></section>
 
+    <footer class="footer">
+      <p class="footer__copyright">&copy; Андрей Агеев</p>
+    </footer>
+  </div>
 
+  <div class="popup popup_type_profile">
+    <form class="popup__form" novalidate>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input name="name" id="name-profile" type="text" class="popup__field popup__field_type_name" minlength="2"
+        maxlength="40" required novalidate />
+      <span id="name-profile-error" class="error"></span>
+      <input name="job" id="job-profile" type="text" class="popup__field popup__field_type_description" minlength="2"
+        maxlength="200" required />
+      <span id="job-profile-error" class="error"></span>
+      <button class="popup__submit-button" type="submit">Сохранить</button>
+      <button class="popup__close-button" type="button"></button>
+    </form>
+  </div>
 
-      <div class="popup popup_type_add-card">
-        <form class="popup__form popup__form_add-card">
-          <h2 class="popup__title">Новое место</h2>
-          <input name="place-name" type="text" placeholder="Название" class="popup__field popup__field_type_name-card">
-          <input name="link" type="text" placeholder="Ссылка на картинку" class="popup__field popup__field_type_link">
-          <button class="popup__submit-button popup__submit-button_card" type="submit">Создать</button>
-          <button class="popup__close-button popup__close-button_card" type="button"></button>
-        </form>
-      </div>
-  
-      
+  <div class="popup popup_type_photo">
+    <div class="popup__photo-container">
+      <img class="popup__photo" alt="" />
+      <p class="popup__photo-name"></p>
+      <button class="popup__close-button popup__close-button_photo" type="button"></button>
+    </div>
+  </div>
 
+  <div class="popup popup_type_add-card">
+    <form class="popup__form popup__form_add-card" novalidate>
+      <h2 class="popup__title">Новое место</h2>
+      <input name="place-name" type="text" id="name-place" placeholder="Название"
+        class="popup__field popup__field_type_name-card" minlength="2" maxlength="30" required />
+      <span id="name-place-error" class="error"></span>
+      <input name="link" id="place-link" type="url" placeholder="Ссылка на картинку"
+        class="popup__field popup__field_type_link" required />
+      <span id="place-link-error" class="error"></span>
+      <button class="popup__submit-button popup__submit-button_card" type="submit">
+        Создать
+      </button>
+      <button class="popup__close-button popup__close-button_card" type="button"></button>
+    </form>
+  </div>
 
-      <template class="cards-template">
-        <ul class="elements__element">
-          <img class="elements__image" alt="">
-          <button class="elements__delete-btn" type="button"></button>
-          <li class="elements__container">
-            <h2 class="elements__title"></h2>
-            <button type="button" class="elements__heart-btn"></button>
-          </li>
-        </ul>
-      </template>
+  <template class="cards-template">
+    <ul class="elements__element">
+      <img class="elements__image" alt="" />
+      <button class="elements__delete-btn" type="button"></button>
+      <li class="elements__container">
+        <h2 class="elements__title"></h2>
+        <button type="button" class="elements__heart-btn"></button>
+      </li>
+    </ul>
+  </template>
 
-    <script src="./scripts/index.js"></script>
+  <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
+
+</html>
