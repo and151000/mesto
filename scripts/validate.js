@@ -3,6 +3,7 @@ function showError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
   input.classList.add(config.inputInvalidClass);
+  error.classList.add(config.errorClass);
 }
 
 //скрыть ошибку валидации
@@ -10,6 +11,7 @@ function hideError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = "";
   input.classList.remove(config.inputInvalidClass);
+  error.classList.remove(config.errorClass);
 }
 
 //проверить форму на валидность
@@ -66,7 +68,7 @@ const validationConfig = {
   submitButtonSelector: ".popup__submit-button",
   inputInvalidClass: "popup__field_state_invalid",
   buttonInvalidClass: "popup__submit-button_invalid",
-
+  errorClass: "error_visible"
 
 };
 

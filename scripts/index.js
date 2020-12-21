@@ -96,6 +96,7 @@ function openPopup(popup) {
     submitButtonSelector: ".popup__submit-button",
     inputInvalidClass: "popup__field_state_invalid",
     buttonInvalidClass: "popup__submit-button_invalid",
+    errorClass: "error_visible"
   });
   //слушатель нажатия esc на открытых попапах
   document.addEventListener("keyup", escapePopup);

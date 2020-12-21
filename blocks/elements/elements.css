@@ -33,7 +33,7 @@
 @media (max-width: 768px) {
     .elements {
         grid-template-columns: repeat(1, 1fr);
-        grid-gap: 20px ;
+        grid-gap: 20px;
         width: 100%;
     }
 }
