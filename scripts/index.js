@@ -1,12 +1,12 @@
 const editButton = document.querySelector(".profile__edit-button");
 const closeButton = document.querySelector(".popup__close-button");
-const form = document.querySelector(".popup_type_profile");
+const profilePopup = document.querySelector(".popup_type_profile");
 const profileName = document.querySelector(".profile__main-text");
 const profession = document.querySelector(".profile__secondary-text");
 const formName = document.querySelector("#name-profile");
 const formProfession = document.querySelector("#job-profile");
 const formContainer = document.querySelector(".popup__form");
-const cardForm = document.querySelector(".popup_type_add-card");
+const cardPopup = document.querySelector(".popup_type_add-card");
 const cardFormClose = document.querySelector(".popup__close-button_card");
 const cardFormOpen = document.querySelector(".profile__add-button");
 const cardFormContainer = document.querySelector(".popup__form_add-card");
@@ -14,7 +14,6 @@ const cardList = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".cards-template");
 const inputCardName = document.querySelector(".popup__field_type_name-card");
 const inputCardLink = document.querySelector(".popup__field_type_link");
-const saveNewCardButton = document.querySelector(".popup__submit-button_card");
 const openedCard = document.querySelector(".popup_type_photo");
 const openedCardClose = document.querySelector(".popup__close-button_photo");
 const openedCardName = openedCard.querySelector(".popup__photo-name");
@@ -82,22 +81,14 @@ function openCardPicture({ name, link }) {
 
 //закрытие фото
 openedCardClose.addEventListener("click", function (evt) {
-  const targetPicture = evt.target.closest(".popup");
-  closePopup(targetPicture);
+  closePopup(openedCard);
 });
 
 //открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   //вызов валидации  
-  enableValidation({
-    formSelector: ".popup__form",
-    inputSelector: ".popup__field",
-    submitButtonSelector: ".popup__submit-button",
-    inputInvalidClass: "popup__field_state_invalid",
-    buttonInvalidClass: "popup__submit-button_invalid",
-    errorClass: "error_visible"
-  });
+  enableValidation(validationConfig);
   //слушатель нажатия esc на открытых попапах
   document.addEventListener("keyup", escapePopup);
   //слушатель клика на оверлэй
@@ -118,7 +109,7 @@ function addNewCard(evt) {
   const inputLink = inputCardLink.value;
   const newCard = composeCard({ name: inputName, link: inputLink });
   cardList.prepend(newCard);
-  closePopup(cardForm);
+  closePopup(cardPopup);
   cardFormContainer.reset();
 }
 
@@ -127,7 +118,7 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = formName.value;
   profession.textContent = formProfession.value;
-  closePopup(form);
+  closePopup(profilePopup);
 }
 
 //проверка, что попап открыт
@@ -151,15 +142,15 @@ function clickOutside(evt) {
 }
 
 cardFormContainer.addEventListener("submit", addNewCard); //слушатель для сохранения новой карточки
-cardFormOpen.addEventListener("click", () => openPopup(cardForm)); //слушатель открытия попапа для карточки
-cardFormClose.addEventListener("click", () => closePopup(cardForm)); //слушатель закрытия попапа для карточки
+cardFormOpen.addEventListener("click", () => openPopup(cardPopup)); //слушатель открытия попапа для карточки
+cardFormClose.addEventListener("click", () => closePopup(cardPopup)); //слушатель закрытия попапа для карточки
 
 editButton.addEventListener("click", () => {
   formContainer.reset(); //сбрасываю из инпутов введенные, но не сохраненные данные пользователя
   formName.setAttribute("value", profileName.textContent);
   formProfession.setAttribute("value", profession.textContent);
-  openPopup(form);
+  openPopup(profilePopup);
 }); //слушатель открытия попапа профиля
 
-closeButton.addEventListener("click", () => closePopup(form)); //слушатель закрытия попапа для профиля
+closeButton.addEventListener("click", () => closePopup(profilePopup)); //слушатель закрытия попапа для профиля
 formContainer.addEventListener("submit", formSubmitHandler); //слушатель сохранения имени и профессии из попапа профиля

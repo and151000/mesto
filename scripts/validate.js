@@ -73,4 +73,4 @@ const validationConfig = {
 };
 
 //вызов функции включения валидации
-enableValidation(validationConfig);
+// enableValidation(validationConfig);
