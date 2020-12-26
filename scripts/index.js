@@ -87,8 +87,6 @@ openedCardClose.addEventListener("click", function (evt) {
 //открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  //вызов валидации  
-  enableValidation(validationConfig);
   //слушатель нажатия esc на открытых попапах
   document.addEventListener("keyup", escapePopup);
   //слушатель клика на оверлэй
@@ -142,15 +140,26 @@ function clickOutside(evt) {
 }
 
 cardFormContainer.addEventListener("submit", addNewCard); //слушатель для сохранения новой карточки
-cardFormOpen.addEventListener("click", () => openPopup(cardPopup)); //слушатель открытия попапа для карточки
+
+//слушатель открытия попапа для карточки
+cardFormOpen.addEventListener("click", () => {
+  openPopup(cardPopup);
+  cardFormContainer.reset();
+  resetErrorMessage(cardFormContainer, validationConfig);
+  resetSubmitButton(validationConfig);
+});
+
 cardFormClose.addEventListener("click", () => closePopup(cardPopup)); //слушатель закрытия попапа для карточки
 
+//слушатель открытия попапа профиля
 editButton.addEventListener("click", () => {
+  openPopup(profilePopup);
   formContainer.reset(); //сбрасываю из инпутов введенные, но не сохраненные данные пользователя
   formName.setAttribute("value", profileName.textContent);
   formProfession.setAttribute("value", profession.textContent);
-  openPopup(profilePopup);
-}); //слушатель открытия попапа профиля
+  resetErrorMessage(formContainer, validationConfig);
+  resetSubmitButton(validationConfig);
+});
 
 closeButton.addEventListener("click", () => closePopup(profilePopup)); //слушатель закрытия попапа для профиля
 formContainer.addEventListener("submit", formSubmitHandler); //слушатель сохранения имени и профессии из попапа профиля

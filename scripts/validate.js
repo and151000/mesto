@@ -72,5 +72,24 @@ const validationConfig = {
 
 };
 
+
+//убирать ошибку, если закрыли форму, не исправив ее
+function resetErrorMessage(form, config) {
+  const inputList = form.querySelectorAll(config.inputSelector);
+  inputList.forEach((input) => {
+    hideError(form, input, config)
+  });
+}
+
+//Сброс валидации кнопки после закрытия формы с ошибкой
+function resetSubmitButton(config) {
+  const formList = document.querySelectorAll(config.formSelector);
+  formList.forEach(form => {
+    const submitButton = form.querySelector(config.submitButtonSelector);
+    setButtonState(submitButton, form.checkValidity(), config);
+  });
+}
+
 //вызов функции включения валидации
-// enableValidation(validationConfig);
+enableValidation(validationConfig);
+
