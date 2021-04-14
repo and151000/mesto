@@ -74,11 +74,21 @@ openedCardClose.addEventListener('click', function (evt) {
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
-  const formValidator = new FormValidator(data);
-  formValidator.enableValidation();// включаем валидацию;
+
+
   document.addEventListener('keyup', escapePopup);//слушаем нажатие esc на открытых попапах
   document.addEventListener('click', clickOutside);//слушаем клик на оверлэй
 } //открытие попапов
+
+const openFormName = () => {
+  openPopup(form);
+  const formNameValidator = new FormValidator(data).enableValidation();
+}
+
+const openFormPlace = () => {
+  openPopup(cardForm);
+  const formPlaceValidator = new FormValidator(data).enableValidation();
+}
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -106,7 +116,7 @@ function formSubmitHandler(evt) {
   closePopup(form);
 }//сохранение имени и профессии из попапа профиля
 
-function checkClass(popup) {
+function checkPopupActive(popup) {
   return popup.classList.contains('popup_opened');
 }//проверка, что попап открыт
 
@@ -118,21 +128,23 @@ function escapePopup(evt) {
 }//закрытие попапа при нажатии esc
 
 function clickOutside(evt) {
-  if (checkClass(evt.target)) {
+  if (checkPopupActive(evt.target)) {
     closePopup(evt.target);
   };
 };//закрытие попапа при клике на оверлей
 
 cardFormContainer.addEventListener('submit', addNewCard);//триггер для сохранения новой карточки
-cardFormOpen.addEventListener('click', () => openPopup(cardForm));//триггер открытия попапа для карточки
+cardFormOpen.addEventListener('click', openFormPlace);//триггер открытия попапа для карточки
 cardFormClose.addEventListener('click', () => closePopup(cardForm));//триггер закрытия попапа для карточки
 
 editButton.addEventListener('click', () => {
   formContainer.reset();//сбрасываю из инпутов введенные, но не сохраненные данные пользователя
   formName.setAttribute('value', profileName.textContent);
   formProfession.setAttribute('value', profession.textContent);
-  openPopup(form)
+  openFormName();
 });//триггер открытия попапа для профиля
 
 closeButton.addEventListener('click', () => closePopup(form));//триггер закрытия попапа для профиля
 formContainer.addEventListener('submit', formSubmitHandler);//триггер сохранения имени и профессии из попапа профиля
+
+
