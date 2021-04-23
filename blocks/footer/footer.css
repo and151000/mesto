@@ -1,21 +1,15 @@
-@import url(./__copyright/footer__copyright.css);
-
 .footer {
-    max-width: 882px;
-    margin: 0;
-    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: calc(100% * 880 / 1280);
+    margin: 66px 0 60px 0;
+    padding: 0;
 }
 
-@media (max-width:768px) {
+@media screen and (max-width: 935px) {
     .footer {
-        /* max-width: 80%; */
-        margin: 0 40px 0 40px;
-    }
-}
-
-@media (max-width:320px) {
-    .footer {
-        width: 90%;
-        margin: 0 19px 0 19px;
-    }
+        margin: 48px 0 36px 0;
+        width: 88.125%;
+    }    
 }

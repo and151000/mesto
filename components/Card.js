@@ -1,18 +1,18 @@
-import { openedCard, openedCardName, openedCardPic, openPopup } from '../scripts/index.js';
-
 export class Card {
-    constructor(data, cardSelector) {
+    constructor({data, handleCardClick}, cardSelector) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }//определяем параметры карточки
 
     generateCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
-        this._element.querySelector('.elements__image').src = this._link;
-        this._element.querySelector('.elements__title').textContent = this._name;
-
+        this._element.querySelector('.element__pic').src = this._link;
+        this._element.querySelector('.element__pic').alt = this._name;
+        this._element.querySelector('.element__text').textContent = this._name;
+    
         return this._element;
     }//создаем карточку
 
@@ -22,23 +22,12 @@ export class Card {
     }//забираем шаблон из разметки
 
     _setEventListeners() {
-        this._element.querySelector('.elements__heart-btn').addEventListener('click', function (evt) {
-            evt.target.classList.toggle('elements__heart-btn_active');
+        this._element.querySelector('.element__button').addEventListener('click', function (evt) {
+            evt.target.classList.toggle('element__button_clicked');
         });
-        this._element.querySelector('.elements__delete-btn').addEventListener('click', function (evt) {
-            evt.target.closest('.elements__element').remove();
+        this._element.querySelector('.element__delete').addEventListener('click', function (evt) {
+            evt.target.closest('.element').remove();
         });
-        this._element.querySelector('.elements__image').addEventListener('click', () => this._openCardPicture());
+        this._element.querySelector('.element__pic').addEventListener('click', () => this._handleCardClick());
     }//навешиваем основные обработчики на карточку - лайк, удаление, открытие картинки
-
-    _openCardPicture() {
-        openedCardName.textContent = this._name;
-        openedCardPic.src = this._link;
-        openedCardPic.alt = this._name;
-        openPopup(openedCard);
-    }//открытие картинки
 }
-
-
-
-

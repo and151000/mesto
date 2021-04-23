@@ -1,39 +1,9 @@
-@import url(./__element/elements__element.css);
-@import url(./__container/elements__container.css);
-@import url(./__image/elements__image.css);
-@import url(./__title/elements__title.css);
-@import url(./__heart-btn/elements__heart-btn.css);
-@import url(./__delete-btn/elements__delete-btn.css);
-@import url(./__heart-btn/_active/elements__heart-btn_active.css);
-
-
 .elements {
-    /* max-width: 882px; */
-    display: grid;
-    grid-gap: 21px 18px;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 0 auto 66px;
+    margin: 50px auto 0 auto;
 }
 
-/* @media (max-width: 768px) {
+@media screen and (max-width: 660px) {
     .elements {
-        
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 19px 16px;
-    }
-} */
-
-@media screen and (max-width: 1190px) { 
-    .elements {
-      max-width: 590px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-@media (max-width: 768px) {
-    .elements {
-        grid-template-columns: repeat(1, 1fr);
-        grid-gap: 20px;
-        width: 100%;
-    }
+        margin: 36px auto 0 auto;
+    }    
 }

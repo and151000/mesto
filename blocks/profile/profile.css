@@ -1,46 +1,19 @@
-@import url(./__avatar/profile__avatar.css);
-@import url(./__add-button/profile__add-button.css);
-@import url(./__edit-button/profile__edit-button.css);
-@import url(./__main-text/profile__main-text.css);
-@import url(./__secondary-text/profile__secondary-text.css);
-@import url(./__text/profile__text.css);
-@import url(./__item/profile__item.css);
-@import url(./__row/profile__row.css);
-
 .profile {
-    max-width: 882px;
-    padding-bottom: 50px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-@media (max-width: 1190px) {
+@media screen and (max-width: 935px) {
     .profile {
-        max-width: 750px;
-    }
-}
-
-@media (max-width: 768px) {
-    .profile {
-        justify-content: center;
         flex-direction: column;
-        padding-bottom: 36px;
-        /* max-width: 80%; */
-        /* padding-top: 38px; */
-    }
-}
-
-/* @media (max-width: 320px) {
-    .profile {
-        max-width: 282px;
-        margin: 0 auto 36px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         align-items: center;
-    }
-} */
-
-
+        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+    }    
+}
