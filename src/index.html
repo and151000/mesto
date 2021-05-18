@@ -10,22 +10,22 @@
 <body class="page">
     <header class="header">
         <a class="logo" href="#" target="_blank">
-            <img class="logo__picture" src="<%=require('../images/logo.svg')%>" alt="Логотип Место">
+            <img class="logo__picture" src="<%=require('./images/logo.svg')%>" alt="Логотип Место">
         </a>
     </header>
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('../images/profile.jpg')%>" alt="Жак-Ив Кусто">
+            <img class="profile__avatar" src="<%=require('./images/profile.jpg')%>" alt="Жак-Ив Кусто">
             <div class="profile__info">
                 <h1 id="name" class="profile__title">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__edit-button">
-                    <img class="profile__edit-button-picture" src="<%=require('../images/edit_button.svg')%>"
+                    <img class="profile__edit-button-picture" src="<%=require('./images/edit_button.svg')%>"
                         alt="Кнопка Редактировать">
                 </button>
                 <p id="profession" class="profile__subtitle">Исследователь океана</p>
             </div>
             <button type="button" class="profile__add-button">
-                <img class="profile__add-button-picture" src="<%=require('../images/add_button.svg')%>"
+                <img class="profile__add-button-picture" src="<%=require('./images/add_button.svg')%>"
                     alt="Кнопка Добавить">
             </button>
         </section>
@@ -40,10 +40,9 @@
     <template id="card_template" class="default-card">
         <li class="element">
             <button type="button" class="element__delete">
-                <img class="element__delete-pic" src="<%=require('../images/delete__button.png')%>"
-                    alt="Кнопка удалить">
+                <img class="element__delete-pic" src="<%=require('./images/delete__button.png')%>" alt="Кнопка удалить">
             </button>
-            <img class="element__pic" src="<%=require('../images/dombay.jpg')%>" alt="Изображение">
+            <img class="element__pic" src="<%=require('./images/dombay.jpg')%>" alt="Изображение">
             <div class="element__descrip">
                 <h2 class="element__text"></h2>
                 <button type="button" class="element__button"></button>
@@ -53,10 +52,10 @@
     <section class="popup popup_opened-card">
         <figure class="opened-card">
             <button type="button" class="opened-card__close-button">
-                <img class="opened-card__close-button-picture" src="<%=require('../images/close_icon.svg')%>"
+                <img class="opened-card__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
                     alt="Кнопка Закрыть">
             </button>
-            <img class="opened-card__pic" src="<%=require('../images/dombay.jpg')%>" alt="Изображение">
+            <img class="opened-card__pic" src="<%=require('./images/dombay.jpg')%>" alt="Изображение">
             <p class="opened-card__name"></p>
         </figure>
     </section>
@@ -71,7 +70,7 @@
             <span class="popup__error form-profession-error"></span>
             <button type="submit" class="form__save-button popup__button">Сохранить</button>
             <button type="button" class="form__close-button">
-                <img class="form__close-button-picture" src="<%=require('../images/close_icon.svg')%>"
+                <img class="form__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
                     alt="Кнопка Закрыть">
             </button>
         </form>
@@ -88,7 +87,7 @@
             <button name="card_save" type="submit"
                 class="form__save-button form__save-button_card popup__button">Создать</button>
             <button name="card_close" type="button" class="form__close-button form__close-button_card">
-                <img class="form__close-button-picture" src="<%=require('../images/close_icon.svg')%>"
+                <img class="form__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
                     alt="Кнопка Закрыть">
             </button>
         </form>

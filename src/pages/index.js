@@ -11,6 +11,8 @@ const formName = document.querySelector('#form-name');
 const formProfession = document.querySelector('#form-profession');
 const cardFormOpen = document.querySelector('.profile__add-button');
 
+
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -56,47 +58,61 @@ const dataProfile = {
     errorClass: 'popup__error_visible'
 };
 
-const profileFormValidator = new FormValidator(dataProfile);
-profileFormValidator.enableValidation();// включаем валидацию для профиля
-const cardFormValidator = new FormValidator(dataCard);
-cardFormValidator.enableValidation();// включаем валидацию для карточек
+
 const popupImage = new PopupWithImage('.popup_opened-card', '.opened-card__name', '.opened-card__pic', '.opened-card__close-button');
 popupImage.setEventListeners();
 
-const initialCardList = new Section({ items: initialCards, renderer: (item) => {
-    const card = new Card({data: item, handleCardClick: () => {
-        popupImage.open(item.name, item.link);
-    },},'.default-card');
-    const cardElement = card.generateCard();
-    initialCardList.addItem(cardElement);
-}, }, '.elements__container');
+
+const createCard = (item) => new Card({ data: item, handleCardClick: () => { popupImage.open(item.name, item.link); }, }, '.default-card');
+
+
+
+const initialCardList = new Section({
+    items: initialCards, renderer: (item) => {
+        const card = createCard(item);
+        const cardElement = card.generateCard();
+        initialCardList.addItem(cardElement);
+    },
+}, '.elements__container');
 
 initialCardList.renderItems();//рисуем первые карточки с фото
 
-const popupCardForm = new PopupWithForm('.popup_card', '.form__close-button_card', {handleFormSubmit: (item) => {
-    const card = new Card({data: item, handleCardClick: () => {
-        popupImage.open(item.name, item.link)
-    },},'.default-card');
-    const cardElement = card.generateCard();
-    initialCardList.preaddItem(cardElement);
-    popupCardForm.close();
-},});//создание новой карточки при сабмите в форме
+const popupCardForm = new PopupWithForm('.popup_card', '.form__close-button_card', {
+    handleFormSubmit: (item) => {
+        const card = createCard(item);
+        const cardElement = card.generateCard();
+        initialCardList.preaddItem(cardElement);
+        popupCardForm.close();
+    },
+});//создание новой карточки при сабмите в форме
+popupCardForm.setEventListeners();//слушаем события на форме с карточками
 
 cardFormOpen.addEventListener('click', () => {
     popupCardForm.open();
-    popupCardForm.setEventListeners();//слушаем события на форме с карточками
-});//триггер открытия формы для добавления новой карточки и добавление слушателей на сабмит формы
-const currentProfile = new UserInfo({userName: '.profile__title', userTitle: '.profile__subtitle'});//забираем текущее имя и титул
 
-const popupProfileForm = new PopupWithForm('.popup_profile', '.form__close-button', {handleFormSubmit: (item) => {
-    currentProfile.setUserInfo(item);
-    popupProfileForm.close();
-},});//редактирование профиля при сабмите в форме
+    // popupCardForm.reset()
+});//триггер открытия формы для добавления новой карточки и добавление слушателей на сабмит формы
+
+
+
+const currentProfile = new UserInfo({ userName: '.profile__title', userTitle: '.profile__subtitle' });//забираем текущее имя и титул
+
+const popupProfileForm = new PopupWithForm('.popup_profile', '.form__close-button', {
+    handleFormSubmit: (item) => {
+        currentProfile.setUserInfo(item);
+        popupProfileForm.close();
+    },
+});//редактирование профиля при сабмите в форме
+popupProfileForm.setEventListeners();
 
 editButton.addEventListener('click', () => {
     popupProfileForm.open();
-    popupProfileForm.setEventListeners();
     const user = currentProfile.getUserInfo();
     formName.setAttribute('value', user.name);
     formProfession.setAttribute('value', user.profession);
 });//триггер на открытие формы для редактирования профиля
+
+const profileFormValidator = new FormValidator(dataProfile);
+profileFormValidator.enableValidation();// включаем валидацию для профиля
+const cardFormValidator = new FormValidator(dataCard);
+cardFormValidator.enableValidation();// включаем валидацию для карточек

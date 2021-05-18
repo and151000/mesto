@@ -1,8 +1,9 @@
 export class Popup {
     constructor(popupSelector) {
-      this._popup = document.querySelector(popupSelector);
-      this._clickOutside = this._clickOutside.bind(this);
-      this._handleEscClose = this._handleEscClose.bind(this);
+        this._popup = document.querySelector(popupSelector);
+        this._clickOutside = this._clickOutside.bind(this);
+        this._handleEscClose = this._handleEscClose.bind(this);
+        this._closeButton = this._popup.querySelector('.form__close-button');
     }
 
     open() {
@@ -29,5 +30,6 @@ export class Popup {
 
     setEventListeners() {
         document.addEventListener('click', this._clickOutside);//слушаем клик на оверлэй
+        this._closeButton.addEventListener('click', this.close);//слушаем клик на кнопку закрытия
     }
 }//родительский класс для работы с попапами

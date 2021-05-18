@@ -1,5 +1,5 @@
 export class Card {
-    constructor({data, handleCardClick}, cardSelector) {
+    constructor({ data, handleCardClick }, cardSelector) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
@@ -12,7 +12,7 @@ export class Card {
         this._element.querySelector('.element__pic').src = this._link;
         this._element.querySelector('.element__pic').alt = this._name;
         this._element.querySelector('.element__text').textContent = this._name;
-    
+
         return this._element;
     }//создаем карточку
 
