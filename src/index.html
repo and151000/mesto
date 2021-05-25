@@ -15,14 +15,20 @@
     </header>
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/profile.jpg')%>" alt="Жак-Ив Кусто">
+            <button type="button" class="profile__avatar-container">
+                <div class="profile__avatar-edit-button-container">
+                    <img class="profile__avatar-edit-button" src="<%=require('./images/edit_button.svg')%>"
+                        alt="Кнопка Редактировать">
+                </div>
+                <img class="profile__avatar" src="<%=require('./images/profile.jpg')%>" alt="Фото пользователя">
+            </button>
             <div class="profile__info">
-                <h1 id="name" class="profile__title">Жак-Ив Кусто</h1>
+                <h1 id="name" class="profile__title"></h1>
                 <button type="button" class="profile__edit-button">
                     <img class="profile__edit-button-picture" src="<%=require('./images/edit_button.svg')%>"
                         alt="Кнопка Редактировать">
                 </button>
-                <p id="profession" class="profile__subtitle">Исследователь океана</p>
+                <p id="profession" class="profile__subtitle"></p>
             </div>
             <button type="button" class="profile__add-button">
                 <img class="profile__add-button-picture" src="<%=require('./images/add_button.svg')%>"
@@ -35,7 +41,7 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__copyright">&copy; 2020 Агеев Андрей</p>
+        <p class="footer__copyright">&copy; 2020 Ageev Andrey</p>
     </footer>
     <template id="card_template" class="default-card">
         <li class="element">
@@ -45,14 +51,40 @@
             <img class="element__pic" src="<%=require('./images/dombay.jpg')%>" alt="Изображение">
             <div class="element__descrip">
                 <h2 class="element__text"></h2>
-                <button type="button" class="element__button"></button>
+                <div class="element__button-container">
+                    <button type="button" class="element__button"></button>
+                    <p class="element__button-counter"></p>
+                </div>
             </div>
         </li>
     </template>
+    <section class="popup popup_delete-card">
+        <form name="card-delete-form" class="form form_delete-card popup__form" novalidate>
+            <h2 class="form__title">Вы уверены?</h2>
+            <button type="submit" class="form__save-button popup__button">Да</button>
+            <button type="button" class="popup__close-button">
+                <img class="popup__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
+                    alt="Кнопка Закрыть">
+            </button>
+        </form>
+    </section>
+    <section class="popup popup_profile-picture">
+        <form name="profile-pic-form" class="form form_profile-pic popup__form" novalidate>
+            <h2 class="form__title">Обновить аватар</h2>
+            <input name="avatar" id="profile-pic-link" class="form__item form__item_card popup__input"
+                placeholder="Ссылка на картинку" type="url" required>
+            <span class="popup__error profile-pic-link-error"></span>
+            <button type="submit" class="form__save-button popup__button">Сохранить</button>
+            <button type="button" class="popup__close-button">
+                <img class="popup__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
+                    alt="Кнопка Закрыть">
+            </button>
+        </form>
+    </section>
     <section class="popup popup_opened-card">
         <figure class="opened-card">
-            <button type="button" class="opened-card__close-button">
-                <img class="opened-card__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
+            <button type="button" class="popup__close-button">
+                <img class="popup__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
                     alt="Кнопка Закрыть">
             </button>
             <img class="opened-card__pic" src="<%=require('./images/dombay.jpg')%>" alt="Изображение">
@@ -69,8 +101,8 @@
                 type="text" placeholder="О себе" minlength="2" maxlength="200" required>
             <span class="popup__error form-profession-error"></span>
             <button type="submit" class="form__save-button popup__button">Сохранить</button>
-            <button type="button" class="form__close-button">
-                <img class="form__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
+            <button type="button" class="popup__close-button">
+                <img class="popup__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
                     alt="Кнопка Закрыть">
             </button>
         </form>
@@ -86,8 +118,8 @@
             <span class="popup__error card-link-error"></span>
             <button name="card_save" type="submit"
                 class="form__save-button form__save-button_card popup__button">Создать</button>
-            <button name="card_close" type="button" class="form__close-button form__close-button_card">
-                <img class="form__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
+            <button name="card_close" type="button" class="popup__close-button popup__close-button_card">
+                <img class="popup__close-button-picture" src="<%=require('./images/close_icon.svg')%>"
                     alt="Кнопка Закрыть">
             </button>
         </form>

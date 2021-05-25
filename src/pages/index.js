@@ -5,43 +5,21 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
+import { PopupDelete } from '../components/PopupDelete';
+import { Api } from '../components/Api.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const formName = document.querySelector('#form-name');
 const formProfession = document.querySelector('#form-profession');
 const cardFormOpen = document.querySelector('.profile__add-button');
+const editPicButton = document.querySelector('.profile__avatar-container');
+export const userPic = document.querySelector('.profile__avatar');
+export const userName = document.querySelector('.profile__title');
+export const userAbout = document.querySelector('.profile__subtitle');
+let userId;
 
-
-
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
-const dataCard = {
-    formSelector: '.form_card',
+const validateParameters = {
+    formSelector: '.form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
@@ -49,61 +27,105 @@ const dataCard = {
     errorClass: 'popup__error_visible'
 };
 
-const dataProfile = {
-    formSelector: '.form_profile',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-};
+const popupImage = new PopupWithImage('.popup_opened-card', '.opened-card__name', '.opened-card__pic');//попап с картинкой
+popupImage.setEventListeners();//слушаем действия на открытой картинке
 
+const currentProfile = new UserInfo({ userName: '.profile__title', userTitle: '.profile__subtitle', userAvatar: '.profile__avatar' });//забираем текущее имя и титул
 
-const popupImage = new PopupWithImage('.popup_opened-card', '.opened-card__name', '.opened-card__pic', '.opened-card__close-button');
-popupImage.setEventListeners();
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-24', '835ffcef-d2f4-4b87-8182-b060befe7bcd');//класс с базовым Api
 
+const popupDeleteForm = new PopupDelete('.popup_delete-card', {
+    handleFormSubmit: (cardId) => {
+        popupDeleteForm.renderLoading(true);
+        api.deletePicture(cardId)
+            .then(() => {
+                popupDeleteForm.deleteCard();
+                popupDeleteForm.close();
+            })
+            .catch((err) => { console.log(err) })
+            .finally(() => popupDeleteForm.renderLoading(false))
+    },
+});//форма для подтверждения удаления карточки
+popupDeleteForm.setEventListeners();//слушаем события на форме удаления
 
-const createCard = (item) => new Card({ data: item, handleCardClick: () => { popupImage.open(item.name, item.link); }, }, '.default-card');
-
-
+api.getProfile()
+    .then((result) => {
+        currentProfile.setUserInfo(result);
+        userId = result._id;
+    })
+    .catch((err) => { console.log(err) });//запрос информации о пользователе
 
 const initialCardList = new Section({
-    items: initialCards, renderer: (item) => {
-        const card = createCard(item);
+    renderer: (item) => {
+        const card = new Card({
+            data: item,
+            handleCardClick: () => {
+                popupImage.open(item.name, item.link);
+            },
+            handleRemoveClick: () => {
+                popupDeleteForm.open(card, item._id);
+            },
+        }, '.default-card', userId, api);
         const cardElement = card.generateCard();
         initialCardList.addItem(cardElement);
     },
-}, '.elements__container');
+}, '.elements__container');//экземпляр секции с карточками
 
-initialCardList.renderItems();//рисуем первые карточки с фото
+api.getCards()
+    .then((result) => {
+        const items = result.reverse();
+        initialCardList.renderItems(items)
+    })
+    .catch((err) => { console.log(err) });//запрос на сервер за карточками и рендеринг
 
-const popupCardForm = new PopupWithForm('.popup_card', '.form__close-button_card', {
+const popupCardForm = new PopupWithForm('.popup_card', {
     handleFormSubmit: (item) => {
-        const card = createCard(item);
-        const cardElement = card.generateCard();
-        initialCardList.preaddItem(cardElement);
-        popupCardForm.close();
+        popupCardForm.renderLoading(true);
+        api.postPicture(item)
+            .then(item => initialCardList.renderItems([item]))
+            .then(() => popupCardForm.close())
+            .catch((err) => { console.log(err) })
+            .finally(() => popupCardForm.renderLoading(false));
     },
 });//создание новой карточки при сабмите в форме
-popupCardForm.setEventListeners();//слушаем события на форме с карточками
+popupCardForm.setEventListeners();//слушаем события на форме с добавлением карточки
 
-cardFormOpen.addEventListener('click', () => {
-    popupCardForm.open();
-
-    // popupCardForm.reset()
-});//триггер открытия формы для добавления новой карточки и добавление слушателей на сабмит формы
-
-
-
-const currentProfile = new UserInfo({ userName: '.profile__title', userTitle: '.profile__subtitle' });//забираем текущее имя и титул
-
-const popupProfileForm = new PopupWithForm('.popup_profile', '.form__close-button', {
+const popupProfileForm = new PopupWithForm('.popup_profile', {
     handleFormSubmit: (item) => {
-        currentProfile.setUserInfo(item);
+        popupProfileForm.renderLoading(true);
+        api.patchProfile(item)
+            .then((item) => currentProfile.setUserInfo(item))
+            .catch((err) => { console.log(err) })
+            .finally(() => popupProfileForm.renderLoading(false));
         popupProfileForm.close();
     },
 });//редактирование профиля при сабмите в форме
-popupProfileForm.setEventListeners();
+popupProfileForm.setEventListeners();//слушаем события на форме с данными профиля
+
+const popupPicForm = new PopupWithForm('.popup_profile-picture', {
+    handleFormSubmit: (item) => {
+        popupPicForm.renderLoading(true);
+        userPic.src = item.avatar;
+        api.patchProfilePic(item)
+            .catch((err) => console.log(err))
+            .finally(() => popupPicForm.renderLoading(false));
+        popupPicForm.close();
+    },
+})//редактирование картинки профиля при сабмите на форме
+popupPicForm.setEventListeners();//слушаем события на форме с аватаром
+
+const cardFormValidator = new FormValidator(validateParameters, '.form_card');
+cardFormValidator.enableValidation();
+const picFormValidator = new FormValidator(validateParameters, '.form_profile-pic');
+picFormValidator.enableValidation();
+const profileFormValidator = new FormValidator(validateParameters, '.form_profile');
+profileFormValidator.enableValidation();
+
+cardFormOpen.addEventListener('click', () => { popupCardForm.open(); });
+//триггер открытия формы для добавления новой карточки и добавление слушателей на сабмит формы
+
+editPicButton.addEventListener('click', () => { popupPicForm.open() });
+//триггер на открытие формы для редактирования картинки профиля
 
 editButton.addEventListener('click', () => {
     popupProfileForm.open();
@@ -112,7 +134,3 @@ editButton.addEventListener('click', () => {
     formProfession.setAttribute('value', user.profession);
 });//триггер на открытие формы для редактирования профиля
 
-const profileFormValidator = new FormValidator(dataProfile);
-profileFormValidator.enableValidation();// включаем валидацию для профиля
-const cardFormValidator = new FormValidator(dataCard);
-cardFormValidator.enableValidation();// включаем валидацию для карточек
