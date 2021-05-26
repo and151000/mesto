@@ -1,3 +1,10 @@
+const handleResponse = (res) => {
+    if (res.ok) {
+        return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 export class Api {
     constructor(baseUrl, password) {
         this._password = password;
@@ -11,12 +18,7 @@ export class Api {
                 authorization: this._password,
             }
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     getCards() {
@@ -26,12 +28,7 @@ export class Api {
                 authorization: this._password,
             }
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     putLike(id) {
@@ -41,12 +38,7 @@ export class Api {
                 authorization: this._password
             },
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     deleteLike(id) {
@@ -56,12 +48,7 @@ export class Api {
                 authorization: this._password
             }
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     patchProfile(item) {
@@ -76,12 +63,7 @@ export class Api {
                 about: item.form_profession
             }),
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     patchProfilePic(item) {
@@ -95,12 +77,7 @@ export class Api {
                 avatar: item.avatar
             }),
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     postPicture(item) {
@@ -115,12 +92,7 @@ export class Api {
                 link: item.link
             }),
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 
     deletePicture(id) {
@@ -130,11 +102,6 @@ export class Api {
                 authorization: '835ffcef-d2f4-4b87-8182-b060befe7bcd'
             }
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
+            .then(handleResponse);
     }
 }

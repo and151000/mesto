@@ -94,10 +94,12 @@ const popupProfileForm = new PopupWithForm('.popup_profile', {
     handleFormSubmit: (item) => {
         popupProfileForm.renderLoading(true);
         api.patchProfile(item)
-            .then((item) => currentProfile.setUserInfo(item))
+            .then((item) => {
+                currentProfile.setUserInfo(item);
+                popupProfileForm.close();
+            })
             .catch((err) => { console.log(err) })
             .finally(() => popupProfileForm.renderLoading(false));
-        popupProfileForm.close();
     },
 });//редактирование профиля при сабмите в форме
 popupProfileForm.setEventListeners();//слушаем события на форме с данными профиля
@@ -105,11 +107,13 @@ popupProfileForm.setEventListeners();//слушаем события на фор
 const popupPicForm = new PopupWithForm('.popup_profile-picture', {
     handleFormSubmit: (item) => {
         popupPicForm.renderLoading(true);
-        userPic.src = item.avatar;
         api.patchProfilePic(item)
+            .then((res) => {
+                userPic.src = res.avatar;
+                popupPicForm.close();
+            })
             .catch((err) => console.log(err))
             .finally(() => popupPicForm.renderLoading(false));
-        popupPicForm.close();
     },
 })//редактирование картинки профиля при сабмите на форме
 popupPicForm.setEventListeners();//слушаем события на форме с аватаром
